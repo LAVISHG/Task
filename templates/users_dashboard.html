@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% load static %}
+{% block body %}
+<table class="table table-borderless" style="color: beige; margin-top: 30px; margin-left: 35px;">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">First Name</th>
+      
+        <th scope="col">Last Name</th>
+        <th scope="col">Mobile Number</th>
+        <th scope="col">Email</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.first_name }}</td>
+          <td>{{ user.last_name}}</td>
+          <td>{{ user.mobile_num }}</td>
+          <td>{{ user.email }}</td>
+          <td><form method="post" action="{% url 'panel:delete_user' user.id  %}">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+            <form method="post" action="{% url 'panel:edit_user' user.id  %}">
+            {% csrf_token %}
+            <button type="submit">Edit</button>
+        </form></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
